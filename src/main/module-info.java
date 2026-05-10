@@ -18,6 +18,6 @@ module se1_play {
     /*
      * External modules required by this module.
      */
-    // requires org.junit.jupiter.api;
+    requires org.junit.jupiter.api;
     // requires transitive runtimeSE;
 }
