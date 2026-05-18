@@ -11,9 +11,12 @@ module se1_play {
      * and runtime (use <i>open</i> for compile-time access only).
      */
     exports application;
+    exports optionals;
+
 
     /* Open package to JUnit test runner and the javadoc compiler. */
     opens application;
+    opens optionals;
 
     /*
      * External modules required by this module.
