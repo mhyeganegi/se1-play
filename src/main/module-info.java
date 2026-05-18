@@ -14,6 +14,7 @@ module se1_play {
 
     /* Open package to JUnit test runner and the javadoc compiler. */
     opens application;
+    opens numbers;
 
     /*
      * External modules required by this module.
