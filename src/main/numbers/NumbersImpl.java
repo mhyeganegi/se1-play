@@ -5,6 +5,8 @@ import java.util.Set;
 
 import java.util.ArrayList;
 
+import java.util.Arrays;
+
 import java.util.LinkedHashSet;
 
 class NumbersImpl implements Numbers {
@@ -125,6 +127,56 @@ public Set<Pair> findSums(int[] numbers, int sum) {
 
 @Override
 public Set<Set<Integer>> findAllSums(int[] numbers, int sum) {
-    return Set.of();
+    if (numbers == null) {
+        throw new IllegalArgumentException("illegal argument: null");
+    }
+
+    Set<Set<Integer>> result = new LinkedHashSet<>();
+
+    int[] sortedNumbers = Arrays.copyOf(numbers, numbers.length);
+    Arrays.sort(sortedNumbers);
+
+    findAllSumsRecursive(sortedNumbers, sum, 0, 0, new LinkedHashSet<>(), result);
+
+    return result;
+}
+
+private void findAllSumsRecursive(
+    int[] numbers,
+    int targetSum,
+    int startIndex,
+    int currentSum,
+    Set<Integer> currentCombination,
+    Set<Set<Integer>> result
+) {
+    if (currentSum == targetSum) {
+        result.add(new LinkedHashSet<>(currentCombination));
+        return;
+    }
+
+    if (currentSum > targetSum) {
+        return;
+    }
+
+    for (int i = startIndex; i < numbers.length; i++) {
+        int nextSum = currentSum + numbers[i];
+
+        if (nextSum > targetSum) {
+            break;
+        }
+
+        currentCombination.add(numbers[i]);
+
+        findAllSumsRecursive(
+            numbers,
+            targetSum,
+            i + 1,
+            nextSum,
+            currentCombination,
+            result
+        );
+
+        currentCombination.remove(numbers[i]);
+    }
 }
 }
